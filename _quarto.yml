@@ -5,8 +5,8 @@ website:
   title: "Conscious Consumers"
   favicon: assets/logo.png
   navbar:
-    background: "#f4ecd8"   # soft cream
-    foreground: "#374b2a"   # dark green text
+    background: "#f4ecd8"
+    foreground: "#374b2a"
     logo: assets/logo.png
     right:
       - text: "Home"
@@ -29,6 +29,6 @@ website:
 
 format:
   html:
-    theme: default         # ✅ use base theme only
-    css: styles.css        # ✅ include your plain CSS here
+    theme: default
+    css: styles.css
     toc: true
