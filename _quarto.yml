@@ -1,0 +1,35 @@
+project:
+  type: website
+
+website:
+  title: "Conscious Consumers"
+  favicon: assets/logo.png
+  navbar:
+    background: "#f4ecd8"   # soft cream
+    foreground: "#374b2a"   # dark green text
+    logo: assets/logo.png
+    right:
+      - text: "Home"
+        href: index.qmd
+      - text: "Reviews"
+        menu:
+          - text: "All Reviews"
+            href: index.qmd
+          - text: "Submit a Review"
+            href: https://tally.so/r/your-form-id
+      - text: "Blog"
+        menu:
+          - text: "All Posts"
+            href: blog/index.qmd
+          - text: "Bamboo Toothbrushes"
+            href: blog/bamboo-toothbrush.qmd
+  page-footer:
+    left: "🌱 Built with Quarto + GitHub Pages"
+    right: "© 2025 Conscious Consumers"
+
+format:
+  html:
+    theme:
+      light: [default, styles.css]
+    toc: true
+    css: styles.css
