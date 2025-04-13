@@ -16,7 +16,7 @@ website:
           - text: "All Reviews"
             href: index.qmd
           - text: "Submit a Review"
-            href: https://tally.so/r/your-form-id
+            href: https://tally.so/r/wdRZZq
       - text: "Blog"
         menu:
           - text: "All Posts"
@@ -29,7 +29,6 @@ website:
 
 format:
   html:
-    theme:
-      light: [default, styles.css]
+    theme: default         # ✅ use base theme only
+    css: styles.css        # ✅ include your plain CSS here
     toc: true
-    css: styles.css
