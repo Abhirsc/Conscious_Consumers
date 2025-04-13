@@ -1,0 +1,39 @@
+---
+title: "All Reviews"
+format:
+  html:
+    toc: true
+    toc-title: "On this page"
+    code-tools: false
+---
+
+# 🛍️ Sydney Eco Product Reviews
+
+Welcome to our community-powered review hub! Below you'll find quick, sortable feedback from locals on eco-friendly products available in Sydney.
+
+> 🌿 Want to share your thoughts? [Submit a quick review](https://tally.so/r/wdRZZq)
+
+## 📊 Product Review Table
+
+```{r}
+#| echo: false
+#| layout-ncol: 1
+
+library(readr)
+library(DT)
+
+reviews <- read_csv("reviews.csv")
+
+datatable(
+  reviews,
+  options = list(
+    pageLength = 10,
+    autoWidth = TRUE,
+    scrollX = TRUE,
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
+  ),
+  rownames = FALSE,
+  filter = "top",
+  class = "stripe hover"
+)
