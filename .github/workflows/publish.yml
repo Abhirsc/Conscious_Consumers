@@ -17,9 +17,6 @@ jobs:
         with:
           version: latest
 
-      - name: Verify project files
-        run: ls -R
-
       - name: Render site
         run: quarto render
 
