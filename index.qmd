@@ -37,3 +37,6 @@ datatable(
   filter = "top",
   class = "stripe hover"
 )
+## 🧭 Explore More
+- 📚 [Read in-depth product blogs](blog/index.qmd)
+- 🛒 [See what's trending locally](#)
