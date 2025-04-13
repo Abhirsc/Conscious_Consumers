@@ -1,0 +1,24 @@
+---
+title: "Product Blog Library"
+format:
+  html:
+    toc: true
+---
+
+# 📚 In-Depth Product Reviews
+
+Welcome to the blog section! Here you'll find deeper dives into standout products, comparisons between brands, and eco tips for smarter shopping in Sydney.
+
+Whether you're curious about bamboo toothbrushes or deciding between reusable cups, this is where we break it all down.
+
+## 🪥 Recently Added
+
+- [🪥 Are Bamboo Toothbrushes Worth It?](bamboo-toothbrush.qmd)
+
+## 🧭 More Coming Soon
+
+- ♻️ KeepCup vs. JOCO: Reusable Cup Face-Off  
+- 🌿 5 Surprising Swaps for Everyday Waste  
+- 🧼 What’s Inside Your “Eco” Laundry Detergent?
+
+> Want to suggest a blog topic or write one with us? [Let us know here](https://tally.so/r/wdRZZq)
