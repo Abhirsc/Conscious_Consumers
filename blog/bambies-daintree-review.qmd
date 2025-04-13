@@ -1,0 +1,56 @@
+---
+title: "🕶️ Product Review & Sustainability Report: Bambies Daintree Glasses"
+author: "Longtime Customer (3+ Years | 3 Pairs Owned)"
+date: 2025-04-14
+categories: [eyewear, sustainability, product-review]
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    theme: cosmo
+    css: styles.css
+---
+
+## 🌿 Overview
+
+The Bambies Daintree glasses are lightweight, beautifully crafted eyewear made with FSC-certified walnut and maple wood. With a smooth natural finish and spring-loaded hinges, they fit snugly and look unique thanks to the natural wood grain. They are compatible with prescription lenses, making them both fashionable and practical.
+
+---
+
+## 🧭 Sustainability Scorecard (Rated out of 5)
+
+| Category              | Score  | Notes                                                                 |
+|----------------------|--------|-----------------------------------------------------------------------|
+| Materials            | 5/5    | FSC-certified wood, bio-based resin finish, and plant cellulose lenses |
+| Packaging            | 4/5    | Minimal and recyclable, no overpackaging                             |
+| Manufacturing Ethics | 3.5/5  | Sustainably sourced wood; no info on labor standards or carbon offset |
+| Durability           | 4.5/5  | Long-lasting, replaceable lenses, good build                         |
+| End-of-Life Impact   | 3/5    | Biodegradable frame, but no take-back or recycling scheme offered    |
+
+**🔎 Overall Sustainability Rating:** 4.2 / 5
+
+---
+
+## 📝 Personal Experience
+
+I've been a Bambies customer for over three years and have owned three pairs:
+
+1. Daintree – my absolute favorite. I loved the feel, the look, and the vibe. Sadly, I lost it in Brisbane’s Mowbray Park.  
+2. Another pair I ordered had a small defect, but Bambies replaced it efficiently and without fuss. Their customer service really shines.  
+3. My current pair? Loving it again. Still fits perfectly, lightweight, and draws compliments.
+
+As someone who values sustainable design, good craftsmanship, and honest service — I keep coming back.
+
+---
+
+## 💡 Suggestions for Improvement
+
+- Offer a lens recycling or frame return program (circular economy bonus!)  
+- Include more transparency about carbon footprint or ethical sourcing details  
+- Maybe consider limited-edition collaborations with conservation orgs  
+
+---
+
+## 📸 Photos
+
+Photos to be added soon — including my current pair and hopefully one day a reunited Daintree!
