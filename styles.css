@@ -1,0 +1,73 @@
+/* styles.css - for Conscious Consumers Quarto site */
+
+/* Global body styles */
+body {
+  background-color: #f4ecd8; /* cream */
+  color: #374b2a; /* dark green */
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Link styles */
+a {
+  color: #6d9c57;
+}
+a:hover {
+  color: #374b2a;
+  text-decoration: underline;
+}
+
+/* Navbar customization */
+.navbar {
+  background-color: #f4ecd8;
+  border-bottom: 2px solid #6d9c57;
+}
+
+.navbar-brand img {
+  max-height: 40px;
+}
+
+/* Table styles */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+table th, table td {
+  border: 1px solid #9ebc88;
+  padding: 8px;
+}
+table th {
+  background-color: #9ebc88;
+  color: #374b2a;
+}
+table tr:nth-child(even) {
+  background-color: #fdfaf2;
+}
+
+/* Button style override (if needed) */
+.btn {
+  background-color: #6d9c57;
+  color: white;
+  border: none;
+}
+.btn:hover {
+  background-color: #374b2a;
+  color: white;
+}
+
+/* Callouts (optional) */
+.callout {
+  border-left: 4px solid #a17747;
+  background-color: #fff8ec;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Footer */
+.page-footer {
+  background-color: #f4ecd8;
+  color: #374b2a;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+  border-top: 1px solid #9ebc88;
+  text-align: center;
+}
