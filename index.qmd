@@ -26,6 +26,7 @@ reviews <- read_csv("reviews.csv")
 
 datatable(
   reviews,
+  extensions = 'Buttons',
   options = list(
     pageLength = 10,
     autoWidth = TRUE,
@@ -37,6 +38,8 @@ datatable(
   filter = "top",
   class = "stripe hover"
 )
+```
+
 ## 🧭 Explore More
 - 📚 [Read in-depth product blogs](blog/index.qmd)
 - 🛒 [See what's trending locally](#)
