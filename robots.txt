@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://abhirsc.github.io/Conscious_Consumers/sitemap.xml
