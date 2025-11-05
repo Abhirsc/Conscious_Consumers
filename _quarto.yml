@@ -3,6 +3,10 @@ project:
 
 website:
   title: "Conscious Consumers"
+   description: "Community eco-product reviews from Sydney"
+  site-url: https://abhirsc.github.io/Conscious_Consumers/
+  open-graph: true
+  twitter-card: true
   favicon: assets/logo.png
   navbar:
     background: "#f4ecd8"
