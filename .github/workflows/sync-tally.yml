@@ -1,0 +1,48 @@
+name: Sync Tally Reviews
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */6 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Sync reviews from Tally
+        env:
+          TALLY_API_KEY: ${{ secrets.TALLY_API_KEY }}
+          TALLY_FORM_ID: ${{ secrets.TALLY_FORM_ID }}
+        run: |
+          python scripts/sync_tally_reviews.py \
+            --csv-path reviews.csv \
+            --state-file .github/tally_state.json
+
+      - name: Commit updates
+        id: commit
+        run: |
+          if [[ -n "$(git status --porcelain reviews.csv .github/tally_state.json)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add reviews.csv .github/tally_state.json
+            git commit -m "chore: update reviews from Tally"
+            echo "committed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "committed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Push changes
+        if: steps.commit.outputs.committed == 'true'
+        run: git push
