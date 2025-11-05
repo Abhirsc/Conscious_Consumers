@@ -64,3 +64,7 @@ Whether you're just starting your eco journey or want to recommend a great bambo
 
 💡 Why It Exists
 Sydney shoppers deserve simple, honest info about eco products. This site helps surface trustworthy feedback from real people — not ads.
+
+reviews.csv columns:
+product | rating | review | date
+
