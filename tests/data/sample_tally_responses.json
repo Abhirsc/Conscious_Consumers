@@ -1,0 +1,30 @@
+{
+  "data": [
+    {
+      "id": "response-001",
+      "submittedAt": "2024-05-04T10:00:00Z",
+      "answers": [
+        {"question": {"label": "Product"}, "value": "Compostable Bin Liners"},
+        {"question": {"label": "Brand"}, "value": "EarthWrap"},
+        {"question": {"label": "Rating"}, "value": 5},
+        {"question": {"label": "Comment"}, "value": "Durable and easy to tie."},
+        {"question": {"label": "Category"}, "value": "Home"},
+        {"question": {"label": "Would you recommend it?"}, "value": "Yes"},
+        {"question": {"label": "Postcode"}, "value": "2000"}
+      ]
+    },
+    {
+      "id": "response-002",
+      "submittedAt": "2024-05-05T12:30:00Z",
+      "answers": [
+        {"question": {"label": "Product name"}, "value": "Refillable Hand Soap"},
+        {"question": {"label": "Brand Name"}, "value": "EcoSud"},
+        {"question": {"label": "Rate it out of 5"}, "value": 4},
+        {"question": {"label": "Quick comment"}, "value": "Smells great but a bit pricey."},
+        {"question": {"label": "Product category"}, "value": "Cleaning"},
+        {"question": {"label": "Do you recommend this product?"}, "value": "Maybe"},
+        {"question": {"label": "Postal code"}, "value": "2150"}
+      ]
+    }
+  ]
+}
