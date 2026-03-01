@@ -19,10 +19,9 @@ Welcome to our community-powered review hub! Below you'll find quick, sortable f
 #| echo: false
 #| layout-ncol: 1
 
-library(readr)
 library(DT)
 
-reviews <- read_csv("reviews.csv")
+reviews <- read.csv("reviews.csv", stringsAsFactors = FALSE, check.names = FALSE)
 
 datatable(
   reviews,

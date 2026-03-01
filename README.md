@@ -34,13 +34,15 @@ It’s simple, transparent, and open — designed to make sustainability easy, l
 
 ```mermaid
 flowchart TD
-    A[🧍 User] -->|Submits review| B[Tally Form]
-    B -->|Triggers automation| C[Make (Integromat)]
-    C -->|Updates dataset| D[reviews.csv on GitHub]
-    D -->|Quarto rebuild| E[🌐 GitHub Pages Site]
-    E -->|Displays| F[🪴 Live Review Table & Blogs]
+    A["User"] -->|Submits review| B["Tally Form"]
+    B -->|Triggers automation| C["Make (Integromat)"]
+    C -->|Updates dataset| D["reviews.csv on GitHub"]
+    D -->|Quarto rebuild| E["GitHub Pages Site"]
+    E -->|Displays| F["Live Review Table and Blogs"]
     F -->|Inspires| A
+```
 
+```text
 📂 Project Structure
 
 📦 eco-review-site/
@@ -51,7 +53,6 @@ flowchart TD
 │   ├─ bamboo-toothbrush.qmd ← Individual blog posts
 │   ├─ keepcup-review.qmd
 ├─ styles.css                ← Optional custom styles
-
 ```
  Built using Quarto, GitHub Pages, and Tally forms, this platform helps conscious consumers make better everyday choices — from reusable straws to ethical cleaning products.
 
@@ -67,4 +68,3 @@ Sydney shoppers deserve simple, honest info about eco products. This site helps 
 
 reviews.csv columns:
 product | rating | review | date
-
