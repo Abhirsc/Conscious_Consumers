@@ -61,49 +61,11 @@ a:hover {
   line-height: 1.75;
 }
 
-.review-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.9rem;
-  margin-top: 1.2rem;
-}
-
-.review-cta,
-.review-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 46px;
-  padding: 0.8rem 1.2rem;
-  border-radius: 999px;
-  border: 1px solid transparent;
-  font-weight: 700;
-  text-decoration: none;
-  transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
-}
-
-.review-cta {
-  background: var(--cc-leaf);
-  color: #fff;
-  box-shadow: 0 10px 24px rgba(55, 75, 42, 0.18);
-}
-
-.review-cta:hover {
-  color: #fff;
-  background: #2d3d23;
-  transform: translateY(-1px);
-}
-
-.review-secondary {
-  background: rgba(255, 255, 255, 0.7);
-  border-color: rgba(109, 156, 87, 0.35);
-  color: var(--cc-leaf);
-}
-
-.review-secondary:hover {
-  background: #fff;
-  color: var(--cc-leaf);
-  transform: translateY(-1px);
+.review-note {
+  max-width: 42rem;
+  margin: 1rem 0 0;
+  font-weight: 600;
+  color: rgba(55, 75, 42, 0.88);
 }
 
 .review-qr-card {

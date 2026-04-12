@@ -12,21 +12,16 @@ format:
 <div class="review-hero">
   <p class="review-tagline">Lets move towards true goods and filter out all greenwashing with the power of community.</p>
   <p class="review-intro">Welcome to our community-powered review hub. Discover quick, trustworthy feedback from locals on eco-friendly products available in Sydney, then add your own review in under a minute.</p>
-  <div class="review-actions">
-    <a class="review-cta" href="https://tally.so/r/wdRZZq">Submit a quick review</a>
-    <a class="review-secondary" href="#product-review-table">Browse community reviews</a>
-  </div>
+  <p class="review-note">Scan or click the QR card to submit a review, then browse what the community has approved.</p>
 </div>
 
 <div class="review-qr-card">
   <a href="https://tally.so/r/wdRZZq">
     <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Ftally.so%2Fr%2FwdRZZq" alt="QR code for the review form">
   </a>
-  <p class="review-qr-title">Scan to submit your review</p>
+  <p class="review-qr-title">Scan or click to submit your review</p>
   <p class="review-qr-copy">Fast feedback from your phone helps keep the table current.</p>
 </div>
-
-> 🌿 Want to share your thoughts? [Submit a quick review](https://tally.so/r/wdRZZq)
 
 ## 📊 Product Review Table
 
