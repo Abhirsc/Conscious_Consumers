@@ -9,7 +9,22 @@ format:
 
 # 🛍️ Sydney Eco Product Reviews
 
-Welcome to our community-powered review hub! Below you'll find quick, sortable feedback from locals on eco-friendly products available in Sydney.
+<div class="review-hero">
+  <p class="review-tagline">Lets move towards true goods and filter out all greenwashing with the power of community.</p>
+  <p class="review-intro">Welcome to our community-powered review hub. Discover quick, trustworthy feedback from locals on eco-friendly products available in Sydney, then add your own review in under a minute.</p>
+  <div class="review-actions">
+    <a class="review-cta" href="https://tally.so/r/wdRZZq">Submit a quick review</a>
+    <a class="review-secondary" href="#product-review-table">Browse community reviews</a>
+  </div>
+</div>
+
+<div class="review-qr-card">
+  <a href="https://tally.so/r/wdRZZq">
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Ftally.so%2Fr%2FwdRZZq" alt="QR code for the review form">
+  </a>
+  <p class="review-qr-title">Scan to submit your review</p>
+  <p class="review-qr-copy">Fast feedback from your phone helps keep the table current.</p>
+</div>
 
 > 🌿 Want to share your thoughts? [Submit a quick review](https://tally.so/r/wdRZZq)
 
@@ -22,6 +37,25 @@ Welcome to our community-powered review hub! Below you'll find quick, sortable f
 library(DT)
 
 reviews <- read.csv("reviews.csv", stringsAsFactors = FALSE, check.names = FALSE)
+
+rename_map <- c(
+  "Name" = "Product",
+  "Total Rating" = "Rating",
+  "Recommend" = "Recommended",
+  "Reccommend" = "Recommended"
+)
+
+matched_names <- intersect(names(rename_map), names(reviews))
+if (length(matched_names) > 0) {
+  names(reviews)[match(matched_names, names(reviews))] <- rename_map[matched_names]
+}
+
+preferred_columns <- c("Timestamp", "Category", "Brand", "Product", "Rating", "Recommended", "Comment")
+if ("Status" %in% names(reviews)) {
+  reviews <- reviews[trimws(reviews$Status) == "Approved", , drop = FALSE]
+}
+
+reviews <- reviews[, intersect(preferred_columns, names(reviews)), drop = FALSE]
 
 datatable(
   reviews,

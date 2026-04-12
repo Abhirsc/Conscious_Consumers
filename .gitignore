@@ -2,5 +2,7 @@
 _site/
 .quarto/
 *.utf8.md
+__pycache__/
+*.pyc
 
 /.quarto/

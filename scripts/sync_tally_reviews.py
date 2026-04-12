@@ -24,41 +24,41 @@ from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 TALLY_API_BASE = "https://api.tally.so"
 CSV_HEADERS = [
-    "Product",
-    "Brand",
-    "Rating",
-    "Comment",
+    "Timestamp",
     "Category",
+    "Brand",
+    "Product",
+    "Rating",
     "Recommended",
-    "Code",
+    "Comment",
+    "Status",
 ]
 
 # Question label aliases allow the script to gracefully handle minor wording
 # changes in the Tally form without requiring code updates.
 LABEL_ALIASES = {
-    "Product": "Product",
-    "Product name": "Product",
-    "Product Name": "Product",
-    "What product are you reviewing?": "Product",
+    "Category": "Category",
+    "Product category": "Category",
     "Brand": "Brand",
     "Brand name": "Brand",
     "Brand Name": "Brand",
+    "Product": "Product",
+    "Product name": "Product",
+    "Product Name": "Product",
+    "Name": "Product",
+    "What product are you reviewing?": "Product",
     "Rating": "Rating",
+    "Total Rating": "Rating",
     "Rate it out of 5": "Rating",
     "How would you rate it out of 5?": "Rating",
+    "Would you recommend it?": "Recommended",
+    "Recommend": "Recommended",
+    "Reccommend": "Recommended",
+    "Recommendation": "Recommended",
+    "Do you recommend this product?": "Recommended",
     "Comment": "Comment",
     "Quick comment": "Comment",
     "Tell us why": "Comment",
-    "Category": "Category",
-    "Product category": "Category",
-    "Would you recommend it?": "Recommended",
-    "Recommend": "Recommended",
-    "Recommendation": "Recommended",
-    "Do you recommend this product?": "Recommended",
-    "Postcode": "Code",
-    "Postal code": "Code",
-    "Post code": "Code",
-    "Code": "Code",
 }
 
 
@@ -213,6 +213,9 @@ def extract_value(answer: Dict[str, Any]) -> str:
 
 def map_response_to_row(response: Dict[str, Any]) -> Dict[str, str]:
     row = {key: "" for key in CSV_HEADERS}
+    submitted_at = response.get("submittedAt") or response.get("createdAt") or ""
+    row["Timestamp"] = str(submitted_at)
+    row["Status"] = "Pending"
     for answer in response.get("answers", []):
         question = answer.get("question", {})
         label = question.get("label")

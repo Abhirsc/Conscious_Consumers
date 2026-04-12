@@ -1,4 +1,4 @@
-Product,Brand,Rating,Comment,Category,Recommended,Code
-Bamboo Toothbrush,BHoomi,4,Great texture and feel,Personal Care,Yes,0123456789
-Reusable Straw,GreenSip,5,Stylish and easy to clean,Kitchen,Yes,1234567890
-Laundry Sheets,EarthClean,3,Effective but pricey,Cleaning,Maybe,4567890123
+Timestamp,Category,Brand,Product,Rating,Recommended,Comment,Status
+2026-04-10T09:30:00Z,Personal Care,BHoomi,Bamboo Toothbrush,4,Yes,Great texture and feel,Approved
+2026-04-10T10:15:00Z,Kitchen,GreenSip,Reusable Straw,5,Yes,Stylish and easy to clean,Approved
+2026-04-11T08:05:00Z,Cleaning,EarthClean,Laundry Sheets,3,Maybe,Effective but pricey,Pending
