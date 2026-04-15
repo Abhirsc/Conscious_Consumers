@@ -15,8 +15,10 @@ from __future__ import annotations
 
 import argparse
 import csv
+import html
 import json
 import os
+import re
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -39,14 +41,20 @@ CSV_HEADERS = [
 LABEL_ALIASES = {
     "Category": "Category",
     "Product category": "Category",
+    "What product category are you reviewing?": "Category",
+    "2. What product category are you reviewing?": "Category",
     "Brand": "Brand",
     "Brand name": "Brand",
     "Brand Name": "Brand",
+    "Brand of this product?": "Brand",
+    "3. Brand of this product?": "Brand",
     "Product": "Product",
     "Product name": "Product",
     "Product Name": "Product",
     "Name": "Product",
     "What product are you reviewing?": "Product",
+    "Name of this product?": "Product",
+    "4. Name of this product?": "Product",
     "Rating": "Rating",
     "Total Rating": "Rating",
     "Rate it out of 5": "Rating",
@@ -56,10 +64,46 @@ LABEL_ALIASES = {
     "Reccommend": "Recommended",
     "Recommendation": "Recommended",
     "Do you recommend this product?": "Recommended",
+    "Would you recommend this in Sydney?": "Recommended",
+    "6. Would you recommend this in Sydney?": "Recommended",
     "Comment": "Comment",
     "Quick comment": "Comment",
     "Tell us why": "Comment",
+    "How companies can make this product better for you?": "Comment",
+    "Anything else you'd like to share with our team?": "Comment",
+    "7. How companies can make this product better for you?": "Comment",
+    "8. Anything else you'd like to share with our team?": "Comment",
 }
+
+RATING_SIGNAL_LABELS = {
+    "🌱 Eco-friendly",
+    "💰 Affordable",
+    "🌍 Local / Ethical",
+    "💪 Durable / Quality",
+    "😍 Aesthetic / Packaging",
+}
+
+SCORE_PATTERN = re.compile(r"\s*\[(\d+(?:\.\d+)?)\]\s*$")
+
+
+def clean_text(value: str) -> str:
+    cleaned = html.unescape(str(value))
+    cleaned = cleaned.replace("\xa0", " ")
+    return " ".join(cleaned.split()).strip()
+
+
+def strip_score_suffix(value: str) -> str:
+    return SCORE_PATTERN.sub("", clean_text(value)).strip()
+
+
+def extract_score(value: str) -> Optional[float]:
+    match = SCORE_PATTERN.search(clean_text(value))
+    if not match:
+        return None
+    try:
+        return float(match.group(1))
+    except ValueError:
+        return None
 
 
 def parse_timestamp(value: Optional[str]) -> Optional[datetime]:
@@ -149,8 +193,8 @@ def fetch_responses(api_key: str, form_id: str) -> Iterable[Dict[str, Any]]:
 
     page = 1
     while True:
-        url = f"{TALLY_API_BASE}/forms/{form_id}/responses"
-        params = {"page": page, "limit": 100, "sort": "asc"}
+        url = f"{TALLY_API_BASE}/forms/{form_id}/submissions"
+        params = {"page": page, "limit": 100, "filter": "all"}
         req = request.Request(url + "?" + parse.urlencode(params))
         req.add_header("Authorization", f"Bearer {api_key}")
         try:
@@ -162,7 +206,7 @@ def fetch_responses(api_key: str, form_id: str) -> Iterable[Dict[str, Any]]:
             ) from exc
         except URLError as exc:  # pragma: no cover
             raise SystemExit(f"Failed to reach Tally: {exc.reason}") from exc
-        data = payload.get("data", [])
+        data = normalise_submissions_payload(payload)
         if not data:
             break
         for item in data:
@@ -178,6 +222,8 @@ def load_responses(args: argparse.Namespace) -> List[Dict[str, Any]]:
             payload = json.load(fh)
         if isinstance(payload, dict) and "data" in payload:
             return payload["data"]
+        if isinstance(payload, dict) and "submissions" in payload:
+            return normalise_submissions_payload(payload)
         if isinstance(payload, list):
             return payload
         raise ValueError("Unsupported responses JSON structure")
@@ -191,24 +237,53 @@ def load_responses(args: argparse.Namespace) -> List[Dict[str, Any]]:
 
 
 def normalise_label(label: str) -> Optional[str]:
-    return LABEL_ALIASES.get(label.strip()) if label else None
+    return LABEL_ALIASES.get(clean_text(label)) if label else None
+
+
+def normalise_submissions_payload(payload: Dict[str, Any]) -> List[Dict[str, Any]]:
+    questions = {
+        item.get("id"): clean_text(item.get("title") or "")
+        for item in payload.get("questions", [])
+        if item.get("id")
+    }
+
+    normalised: List[Dict[str, Any]] = []
+    for submission in payload.get("submissions", []):
+        answers = []
+        for response in submission.get("responses", []):
+            label = questions.get(response.get("questionId"), "")
+            answers.append(
+                {
+                    "question": {"label": label},
+                    "value": response.get("answer"),
+                }
+            )
+        normalised.append(
+            {
+                "id": submission.get("id"),
+                "submittedAt": submission.get("submittedAt") or submission.get("createdAt"),
+                "createdAt": submission.get("createdAt"),
+                "answers": answers,
+            }
+        )
+    return normalised
 
 
 def extract_value(answer: Dict[str, Any]) -> str:
     value = answer.get("value")
     if isinstance(value, list):
-        return ", ".join(str(v) for v in value if v not in (None, ""))
+        return ", ".join(strip_score_suffix(str(v)) for v in value if v not in (None, ""))
     if isinstance(value, dict):
         # Tally selects use {"label": ""} or {"labels": []}
         if "label" in value:
-            return str(value["label"])  # single select
+            return strip_score_suffix(str(value["label"]))  # single select
         if "labels" in value:
-            return ", ".join(str(v) for v in value["labels"] if v)
+            return ", ".join(strip_score_suffix(str(v)) for v in value["labels"] if v)
         if "text" in value:
-            return str(value["text"])
+            return clean_text(str(value["text"]))
     if value is None:
         return ""
-    return str(value)
+    return clean_text(str(value))
 
 
 def map_response_to_row(response: Dict[str, Any]) -> Dict[str, str]:
@@ -216,13 +291,31 @@ def map_response_to_row(response: Dict[str, Any]) -> Dict[str, str]:
     submitted_at = response.get("submittedAt") or response.get("createdAt") or ""
     row["Timestamp"] = str(submitted_at)
     row["Status"] = "Pending"
+    rating_scores: List[float] = []
     for answer in response.get("answers", []):
         question = answer.get("question", {})
         label = question.get("label")
+        cleaned_label = clean_text(label) if label else ""
+        if cleaned_label in RATING_SIGNAL_LABELS:
+            raw_value = answer.get("value")
+            values = raw_value if isinstance(raw_value, list) else [raw_value]
+            for item in values:
+                if item in (None, ""):
+                    continue
+                score = extract_score(str(item))
+                if score is not None:
+                    rating_scores.append(score)
         canonical = normalise_label(label)
         if not canonical:
             continue
-        row[canonical] = extract_value(answer)
+        value = extract_value(answer)
+        if canonical == "Comment" and row["Comment"] and value:
+            row["Comment"] = f"{row['Comment']} | {value}"
+        elif value:
+            row[canonical] = value
+    if not row["Rating"] and rating_scores:
+        average_score = sum(rating_scores) / len(rating_scores)
+        row["Rating"] = f"{round(average_score * 5, 1):g}"
     return row
 
 

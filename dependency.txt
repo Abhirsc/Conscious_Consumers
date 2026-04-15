@@ -1,0 +1,42 @@
+Project: Conscious_Consumer
+Last updated: 2026-04-15
+
+Tech stack
+- Quarto website
+- GitHub Pages deployment
+- GitHub Actions automation
+- Python 3.11 for Tally sync workflow
+- R with DT package for rendering the review table
+- CSV file storage for review data
+- Tally form as external data source
+
+Runtime / dependency notes
+- Python standard library only in scripts/sync_tally_reviews.py
+- actions/checkout@v4
+- actions/setup-python@v5
+- quarto-dev/quarto-actions/setup@v2
+- peaceiris/actions-gh-pages@v3
+- r-lib/actions/setup-r@v2
+- r-lib/actions/setup-r-dependencies@v2
+- R packages: knitr, rmarkdown, DT
+
+Current CSV schema
+- Timestamp
+- Category
+- Brand
+- Product
+- Rating
+- Recommended
+- Comment
+- Status
+
+Bugs tracked
+- Merge conflict markers had broken the sync script and README before this update.
+- The previous integration expected Tally's older `responses` payload and failed against the current `submissions` payload.
+- The current live form uses qualitative score fields, so overall `Rating` is now derived from those values.
+
+Tests tracked
+- Unit test: tests/test_sync_tally_reviews.py
+- Offline sample payload: tests/data/sample_tally_responses.json
+- Live functional test completed against form `wdRZZq` using a temporary CSV and temporary state file.
+- Recommended next test: add coverage for state deduplication and CSV append behavior

@@ -1,0 +1,36 @@
+Project: Conscious_Consumer
+Last updated: 2026-04-15
+
+Change log
+- Resolved merge conflict markers in scripts/sync_tally_reviews.py.
+- Resolved README.md conflict and aligned documentation with GitHub Actions based Tally sync.
+- Confirmed the website table reads reviews.csv and filters to Approved rows.
+- Switched project license from MIT to Apache License 2.0.
+- Added project tracking files: memo.txt, study.md, dependency.txt.
+- Updated the Tally sync to support the current `submissions` API payload and the live form's current question titles.
+- Added regression coverage for the current Tally payload shape.
+- Ran a live functional test against the real Tally form using temporary output files.
+
+Process notes
+- Inspected index.qmd, README.md, reviews.csv, sync workflow, sync script, and existing test.
+- Verified the sync path is Tally form -> GitHub Action -> Python script -> reviews.csv -> Quarto table.
+- Identified unresolved merge conflicts as the reason live or sample sync could fail.
+- Prepared to run the offline sample test after code cleanup.
+- Found that the legacy `/responses` endpoint no longer matched the live Tally form integration.
+- Verified the live form works with the current `/submissions` API payload after normalization.
+
+Current features
+- Public Tally form for review collection.
+- Scheduled GitHub Action for review synchronization.
+- CSV-backed Quarto review table.
+- Approval-based display filter using the Status column.
+
+Bugs / risks
+- Live Tally testing still requires TALLY_API_KEY and TALLY_FORM_ID.
+- The current form does not provide a single direct overall rating; the script derives `Rating` from the five scored product-signal fields.
+- API keys should not be kept in chat history or committed to the repo.
+
+What next
+- Replace the GitHub repo secrets with the valid live Tally credentials and run the workflow in GitHub Actions.
+- Decide whether the derived rating logic is the right product metric or if the form should include one explicit overall rating question.
+- Optionally add an automated test for deduplication/state updates.

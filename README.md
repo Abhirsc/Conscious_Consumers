@@ -27,7 +27,7 @@ It’s simple, transparent, and open — designed to make sustainability easy, l
 
 ## 🔧 How It Works  
 
-1. Reviews submitted through **Tally** are synced automatically via **Make (Integromat)**.  
+1. Reviews submitted through **Tally** are synced automatically via a **GitHub Action**.  
 2. Data updates the central **`reviews.csv`** file in this repository.  
 3. The **Quarto site** (hosted via GitHub Pages) rebuilds automatically with the latest reviews.  
 4. Blog posts in `/blog/` are written in Markdown or HTML and rendered as part of the site.  
@@ -39,7 +39,7 @@ It’s simple, transparent, and open — designed to make sustainability easy, l
 ```mermaid
 flowchart TD
     A["User"] -->|Submits review| B["Tally Form"]
-    B -->|Triggers automation| C["Make (Integromat)"]
+    B -->|Scheduled API sync| C["GitHub Action"]
     C -->|Updates dataset| D["reviews.csv on GitHub"]
     D -->|Quarto rebuild| E["GitHub Pages Site"]
     E -->|Displays| F["Live Review Table and Blogs"]
@@ -76,13 +76,14 @@ Sydney shoppers deserve simple, honest info about eco products. This site helps 
 
 | Column      | Description                                           |
 |-------------|-------------------------------------------------------|
-| `Product`   | Name of the product being reviewed                     |
-| `Brand`     | Brand or manufacturer                                  |
-| `Rating`    | Numeric score (1–5)                                    |
-| `Comment`   | Short free-form impression                             |
+| `Timestamp` | Submission timestamp from Tally                        |
 | `Category`  | Product category used for filtering                    |
-| `Recommended` | Community recommendation (`Yes`/`No`/`Maybe`)        |
-| `Code`      | Postcode or location code for context                  |
+| `Brand`     | Brand or manufacturer                                  |
+| `Product`   | Name of the product being reviewed                     |
+| `Rating`    | Numeric score (1–5)                                    |
+| `Recommended` | Community recommendation (`Yes`/`No`/`Maybe`)      |
+| `Comment`   | Short free-form impression                             |
+| `Status`    | Moderation state used to control public visibility     |
 
 Use the existing sample rows as a template if you're adding entries manually.
 
@@ -110,7 +111,7 @@ Add the following repository secrets so the workflow can access the Tally API:
 ```bash
 export TALLY_API_KEY="your_api_key"
 export TALLY_FORM_ID="your_form_id"
-python scripts/sync_tally_reviews.py --csv-path reviews.csv --state-file .github/tally_state.json
+python3 scripts/sync_tally_reviews.py --csv-path reviews.csv --state-file .github/tally_state.json
 ```
 
 For local testing without hitting the API you can pass `--responses-file tests/data/sample_tally_responses.json --dry-run` to preview the mapped rows.
@@ -121,5 +122,11 @@ If the Tally form is updated with new questions:
 
 1. Update `LABEL_ALIASES` in `scripts/sync_tally_reviews.py` so the new field maps to the correct CSV column.
 2. If a brand new column is needed, add it to `reviews.csv`, update `CSV_HEADERS` in the script, and adjust the Quarto template that consumes the CSV.
-reviews.csv columns:
-product | rating | review | date
+
+## Current Review Columns
+
+`reviews.csv` currently uses:
+
+`Timestamp | Category | Brand | Product | Rating | Recommended | Comment | Status`
+
+Crafted with <3 by abhirsc :)
