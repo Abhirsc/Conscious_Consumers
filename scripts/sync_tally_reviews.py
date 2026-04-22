@@ -1,14 +1,9 @@
 #!/usr/bin/env python3
 """Sync reviews from Tally into the local CSV file.
 
-This script fetches all form responses from the configured Tally form, maps
-answers onto the `reviews.csv` schema, deduplicates already-processed
-responses, and appends any new reviews. State is persisted between runs so
-that duplicate rows are not added even if the workflow is executed multiple
- times per day.
-
-It can be executed directly (for local development) or from the GitHub Action
-workflow defined in `.github/workflows/sync-tally.yml`.
+This script fetches form submissions from Tally, maps answers onto the
+`reviews.csv` schema, appends only new submissions, and marks new entries as
+Pending so they require approval before appearing on the public site.
 """
 
 from __future__ import annotations
@@ -202,7 +197,9 @@ def fetch_responses(api_key: str, form_id: str) -> Iterable[Dict[str, Any]]:
                 payload = _json.loads(response.read().decode("utf-8"))
         except HTTPError as exc:  # pragma: no cover - network errors surface to user
             raise SystemExit(
-                f"Failed to fetch Tally responses (HTTP {exc.code}): {exc.reason}"
+                f"Failed to fetch Tally submissions (HTTP {exc.code}): {exc.reason}. "
+                "Check that TALLY_API_KEY belongs to the same Tally workspace as "
+                "TALLY_FORM_ID, and that TALLY_FORM_ID is the internal form ID."
             ) from exc
         except URLError as exc:  # pragma: no cover
             raise SystemExit(f"Failed to reach Tally: {exc.reason}") from exc
@@ -276,7 +273,7 @@ def extract_value(answer: Dict[str, Any]) -> str:
     if isinstance(value, dict):
         # Tally selects use {"label": ""} or {"labels": []}
         if "label" in value:
-            return strip_score_suffix(str(value["label"]))  # single select
+            return strip_score_suffix(str(value["label"]))
         if "labels" in value:
             return ", ".join(strip_score_suffix(str(v)) for v in value["labels"] if v)
         if "text" in value:
