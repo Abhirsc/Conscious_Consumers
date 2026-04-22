@@ -1,0 +1,149 @@
+[
+  {
+    "objectID": "study.html",
+    "href": "study.html",
+    "title": "Conscious_Consumer Study Notes",
+    "section": "",
+    "text": "Crafted with &lt;3 by abhirsc :)\n\n\nUse this project in this order:\n\nStart from the user flow.\nRead the data file shape.\nRead the sync script.\nRead the page that renders the table.\nRun the offline test before touching live data.\n\nThis project is easiest to understand if you think in layers:\n\nInput layer: Tally collects form responses.\nSync layer: Python maps responses into CSV rows.\nContent layer: reviews.csv becomes the source of truth for reviews.\nPresentation layer: Quarto reads the CSV and renders the table on the website.\n\n\n\n\n\n\nThe site is static. A static site cannot directly write to a server-side database during page rendering, so the project stores reviews in reviews.csv. That file acts like a lightweight table.\n\n\n\nTally stores submissions in its own system. The Python sync script translates Tally response fields into the exact column names the site expects.\n\n\n\nThe file .github/tally_state.json remembers the last processed submission. This prevents duplicated rows when the scheduled workflow runs again.\n\n\n\nThe Quarto page reads reviews.csv and filters rows where Status == \"Approved\". This gives a simple moderation gate before public display.\n\n\n\n\n\nindex.qmd: renders the public review table.\nreviews.csv: the table data source.\nscripts/sync_tally_reviews.py: fetches and maps Tally responses.\n.github/workflows/sync-tally.yml: runs the sync on a schedule.\n.github/tally_state.json: stores deduplication state.\n\n\n\n\n\n\nRun the script with the sample payload first:\ncd /Users/abhirsc/Documents/Conscious_Consumer\npython3 scripts/sync_tally_reviews.py \\\n  --responses-file tests/data/sample_tally_responses.json \\\n  --dry-run\n\n\n\nSet these first:\n\nTALLY_API_KEY\nTALLY_FORM_ID\n\nThen run:\ncd /Users/abhirsc/Documents/Conscious_Consumer\npython3 scripts/sync_tally_reviews.py \\\n  --csv-path reviews.csv \\\n  --state-file .github/tally_state.json\n\n\n\n\nThink of the project as:\nform submission -&gt; normalized record -&gt; CSV row -&gt; rendered website table\nIf something breaks, check it in that same order."
+  },
+  {
+    "objectID": "study.html#learning-style-first",
+    "href": "study.html#learning-style-first",
+    "title": "Conscious_Consumer Study Notes",
+    "section": "",
+    "text": "Use this project in this order:\n\nStart from the user flow.\nRead the data file shape.\nRead the sync script.\nRead the page that renders the table.\nRun the offline test before touching live data.\n\nThis project is easiest to understand if you think in layers:\n\nInput layer: Tally collects form responses.\nSync layer: Python maps responses into CSV rows.\nContent layer: reviews.csv becomes the source of truth for reviews.\nPresentation layer: Quarto reads the CSV and renders the table on the website."
+  },
+  {
+    "objectID": "study.html#core-theory",
+    "href": "study.html#core-theory",
+    "title": "Conscious_Consumer Study Notes",
+    "section": "",
+    "text": "The site is static. A static site cannot directly write to a server-side database during page rendering, so the project stores reviews in reviews.csv. That file acts like a lightweight table.\n\n\n\nTally stores submissions in its own system. The Python sync script translates Tally response fields into the exact column names the site expects.\n\n\n\nThe file .github/tally_state.json remembers the last processed submission. This prevents duplicated rows when the scheduled workflow runs again.\n\n\n\nThe Quarto page reads reviews.csv and filters rows where Status == \"Approved\". This gives a simple moderation gate before public display."
+  },
+  {
+    "objectID": "study.html#important-files",
+    "href": "study.html#important-files",
+    "title": "Conscious_Consumer Study Notes",
+    "section": "",
+    "text": "index.qmd: renders the public review table.\nreviews.csv: the table data source.\nscripts/sync_tally_reviews.py: fetches and maps Tally responses.\n.github/workflows/sync-tally.yml: runs the sync on a schedule.\n.github/tally_state.json: stores deduplication state."
+  },
+  {
+    "objectID": "study.html#how-to-use",
+    "href": "study.html#how-to-use",
+    "title": "Conscious_Consumer Study Notes",
+    "section": "",
+    "text": "Run the script with the sample payload first:\ncd /Users/abhirsc/Documents/Conscious_Consumer\npython3 scripts/sync_tally_reviews.py \\\n  --responses-file tests/data/sample_tally_responses.json \\\n  --dry-run\n\n\n\nSet these first:\n\nTALLY_API_KEY\nTALLY_FORM_ID\n\nThen run:\ncd /Users/abhirsc/Documents/Conscious_Consumer\npython3 scripts/sync_tally_reviews.py \\\n  --csv-path reviews.csv \\\n  --state-file .github/tally_state.json"
+  },
+  {
+    "objectID": "study.html#practical-mental-model",
+    "href": "study.html#practical-mental-model",
+    "title": "Conscious_Consumer Study Notes",
+    "section": "",
+    "text": "Think of the project as:\nform submission -&gt; normalized record -&gt; CSV row -&gt; rendered website table\nIf something breaks, check it in that same order."
+  },
+  {
+    "objectID": "blog/index.html",
+    "href": "blog/index.html",
+    "title": "Product Blog Library",
+    "section": "",
+    "text": "Welcome to the blog section! Here you’ll find deeper dives into standout products, comparisons between brands, and eco tips for smarter shopping in Sydney.\nWhether you’re curious about bamboo toothbrushes or deciding between reusable cups, this is where we break it all down.\n\n\n\n🪥 Are Bamboo Toothbrushes Worth It?\n\n\n\n\n\n♻️ KeepCup vs. JOCO: Reusable Cup Face-Off\n\n🌿 5 Surprising Swaps for Everyday Waste\n\n🧼 What’s Inside Your “Eco” Laundry Detergent?\n\n\nWant to suggest a blog topic or write one with us? Let us know here"
+  },
+  {
+    "objectID": "blog/index.html#recently-added",
+    "href": "blog/index.html#recently-added",
+    "title": "Product Blog Library",
+    "section": "",
+    "text": "🪥 Are Bamboo Toothbrushes Worth It?"
+  },
+  {
+    "objectID": "blog/index.html#more-coming-soon",
+    "href": "blog/index.html#more-coming-soon",
+    "title": "Product Blog Library",
+    "section": "",
+    "text": "♻️ KeepCup vs. JOCO: Reusable Cup Face-Off\n\n🌿 5 Surprising Swaps for Everyday Waste\n\n🧼 What’s Inside Your “Eco” Laundry Detergent?\n\n\nWant to suggest a blog topic or write one with us? Let us know here"
+  },
+  {
+    "objectID": "blog/bamboo-toothbrush.html",
+    "href": "blog/bamboo-toothbrush.html",
+    "title": "🪥 Are Bamboo Toothbrushes Worth It?",
+    "section": "",
+    "text": "Bamboo toothbrushes are one of the easiest eco swaps, but not all are created equal. Let’s explore the good, the bad, and the biodegradable 🌱\n\n\n\nCompostable handles\nStylish and minimal packaging\nWidely available in Sydney eco stores\n\n\n\n\n\nSome use nylon bristles (not compostable)\nMay feel rough for sensitive gums\nPrice varies widely\n\n\n\n\nBrand: BHoomi\nEco Score: 4/5\nRecommended: Yes\nReview: “Great texture and feel. Love the simplicity.”\n\n\nWant to share your experience with a different brand? Submit your review here"
+  },
+  {
+    "objectID": "blog/bamboo-toothbrush.html#pros",
+    "href": "blog/bamboo-toothbrush.html#pros",
+    "title": "🪥 Are Bamboo Toothbrushes Worth It?",
+    "section": "",
+    "text": "Compostable handles\nStylish and minimal packaging\nWidely available in Sydney eco stores"
+  },
+  {
+    "objectID": "blog/bamboo-toothbrush.html#considerations",
+    "href": "blog/bamboo-toothbrush.html#considerations",
+    "title": "🪥 Are Bamboo Toothbrushes Worth It?",
+    "section": "",
+    "text": "Some use nylon bristles (not compostable)\nMay feel rough for sensitive gums\nPrice varies widely"
+  },
+  {
+    "objectID": "blog/bamboo-toothbrush.html#reviewed-product",
+    "href": "blog/bamboo-toothbrush.html#reviewed-product",
+    "title": "🪥 Are Bamboo Toothbrushes Worth It?",
+    "section": "",
+    "text": "Brand: BHoomi\nEco Score: 4/5\nRecommended: Yes\nReview: “Great texture and feel. Love the simplicity.”\n\n\nWant to share your experience with a different brand? Submit your review here"
+  },
+  {
+    "objectID": "blog/bambies-daintree-review.html",
+    "href": "blog/bambies-daintree-review.html",
+    "title": "🕶️ Product Review & Sustainability Report: Bambies Daintree Glasses",
+    "section": "",
+    "text": "The Bambies Daintree glasses are lightweight, beautifully crafted eyewear made with FSC-certified walnut and maple wood. With a smooth natural finish and spring-loaded hinges, they fit snugly and look unique thanks to the natural wood grain. They are compatible with prescription lenses, making them both fashionable and practical."
+  },
+  {
+    "objectID": "blog/bambies-daintree-review.html#overview",
+    "href": "blog/bambies-daintree-review.html#overview",
+    "title": "🕶️ Product Review & Sustainability Report: Bambies Daintree Glasses",
+    "section": "",
+    "text": "The Bambies Daintree glasses are lightweight, beautifully crafted eyewear made with FSC-certified walnut and maple wood. With a smooth natural finish and spring-loaded hinges, they fit snugly and look unique thanks to the natural wood grain. They are compatible with prescription lenses, making them both fashionable and practical."
+  },
+  {
+    "objectID": "blog/bambies-daintree-review.html#sustainability-scorecard-rated-out-of-5",
+    "href": "blog/bambies-daintree-review.html#sustainability-scorecard-rated-out-of-5",
+    "title": "🕶️ Product Review & Sustainability Report: Bambies Daintree Glasses",
+    "section": "🧭 Sustainability Scorecard (Rated out of 5)",
+    "text": "🧭 Sustainability Scorecard (Rated out of 5)\n\n\n\n\n\n\n\n\nCategory\nScore\nNotes\n\n\n\n\nMaterials\n5/5\nFSC-certified wood, bio-based resin finish, and plant cellulose lenses\n\n\nPackaging\n4/5\nMinimal and recyclable, no overpackaging\n\n\nManufacturing Ethics\n3.5/5\nSustainably sourced wood; no info on labor standards or carbon offset\n\n\nDurability\n4.5/5\nLong-lasting, replaceable lenses, good build\n\n\nEnd-of-Life Impact\n3/5\nBiodegradable frame, but no take-back or recycling scheme offered\n\n\n\n🔎 Overall Sustainability Rating: 4.2 / 5"
+  },
+  {
+    "objectID": "blog/bambies-daintree-review.html#personal-experience",
+    "href": "blog/bambies-daintree-review.html#personal-experience",
+    "title": "🕶️ Product Review & Sustainability Report: Bambies Daintree Glasses",
+    "section": "📝 Personal Experience",
+    "text": "📝 Personal Experience\nI’ve been a Bambies customer for over three years and have owned three pairs:\n1. Daintree – my absolute favorite. I loved the feel, the look, and the vibe. Sadly, I lost it in Brisbane’s Mowbray Park.\n2. Another pair I ordered had a small defect, but Bambies replaced it efficiently and without fuss. Their customer service really shines.\n3. My current pair? Loving it again. Still fits perfectly, lightweight, and draws compliments.\nAs someone who values sustainable design, good craftsmanship, and honest service — I keep coming back."
+  },
+  {
+    "objectID": "blog/bambies-daintree-review.html#suggestions-for-improvement",
+    "href": "blog/bambies-daintree-review.html#suggestions-for-improvement",
+    "title": "🕶️ Product Review & Sustainability Report: Bambies Daintree Glasses",
+    "section": "💡 Suggestions for Improvement",
+    "text": "💡 Suggestions for Improvement\n\nOffer a lens recycling or frame return program (circular economy bonus!)\n\nInclude more transparency about carbon footprint or ethical sourcing details\n\nMaybe consider limited-edition collaborations with conservation orgs"
+  },
+  {
+    "objectID": "blog/bambies-daintree-review.html#photos",
+    "href": "blog/bambies-daintree-review.html#photos",
+    "title": "🕶️ Product Review & Sustainability Report: Bambies Daintree Glasses",
+    "section": "📸 Photos",
+    "text": "📸 Photos\nPhotos to be added soon — including my current pair and hopefully one day a reunited Daintree!"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "All Reviews",
+    "section": "",
+    "text": "Lets move towards true goods and filter out all greenwashing with the power of community.\n\n\nWelcome to our community-powered review hub. Discover quick, trustworthy feedback from locals on eco-friendly products available in Sydney, then add your own review in under a minute.\n\n\nScan or click the QR card to submit a review, then browse what the community has approved.\n\n\n\n  \n\nScan or click to submit your review\n\n\nFast feedback from your phone helps keep the table current.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n📚 Read in-depth product blogs\n🛒 See what’s trending locally"
+  },
+  {
+    "objectID": "index.html#explore-more",
+    "href": "index.html#explore-more",
+    "title": "All Reviews",
+    "section": "",
+    "text": "📚 Read in-depth product blogs\n🛒 See what’s trending locally"
+  }
+]
